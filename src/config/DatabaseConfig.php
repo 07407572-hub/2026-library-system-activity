@@ -15,8 +15,7 @@ class Database {
     private ?PDO $pdo = null;
     
     private $config;
-    
-    // Private constructor (prevents direct instantiation)
+
     private function __construct() {
             $env = new EnvParser();
             $env->load(__DIR__ . '/../../.env');
@@ -36,7 +35,6 @@ class Database {
             'driver' => getenv('DB_DRIVER') ?: 'mysql'
         ];
         
-        // Validate required fields
         if (!$this->config['name'] || !$this->config['user']) {
             throw new \Exception("Database name and user are required in .env file");
         }
@@ -70,15 +68,12 @@ class Database {
         }
     }
 
-    // Clone prevention
     private function __clone() {}
     
-    // Wakeup prevention (for unserialization)
     public function __wakeup() {
         throw new RuntimeException("Cannot unserialize singleton");
     }
     
-    // Get the single instance
     public static function getInstance(): Database {
         if (self::$instance === null) {
             self::$instance = new self();
@@ -89,7 +84,7 @@ class Database {
     public function getConnection(){
         return $this->pdo;
     }
-    // Example helper methods
+
     public function prepare(string $sql): PDOStatement {
         return $this->pdo->prepare($sql);
     }
