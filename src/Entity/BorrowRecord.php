@@ -8,56 +8,34 @@ use DateInterval;
 
 class BorrowRecord{
 
-    private int $book_id;
-    private int $record_id;
+    private int $recordId;
+    private int $bookId;
     private string $status;
     private float $fineAmount;
     private DateTime $borrow_date;
     private DateTime $return_date;
 
-public function __construct()
+public function __construct(
+    int $recordId, int $bookId,  
+    string $status, float $fineAmount, 
+    DateTime $borrow_date, DateTime $return_date)
 {
-
-}
-
-public function setBookId(int $book_id)
-{
-    $this->book_id = $book_id;
-}
-
-public function setRecordId(int $record_id)
-{
-    $this->record_id = $record_id;
-}
-
-public function setStatus(String $status)
-{
+    $this->recordId = $recordId;
+    $this->bookId = $bookId;
     $this->status = $status;
-}
-
-public function setFineAmount(float $fineAmount)
-{
     $this->fineAmount = $fineAmount;
-}
-
-public function setBorrowDate(DateTime $borrow_date)
-{
     $this->borrow_date = $borrow_date;
-}
-
-public function setReturnDate(DateTime $return_date)
-{
     $this->return_date = $return_date;
-}
-
-public function getBookId() : int
-{
-    return $this->book_id;
 }
 
 public function getRecordId() : int
 {
-    return $this->record_id;
+    return $this->recordId;
+}
+
+public function getBookId() : int
+{
+    return $this->bookId;
 }
 
 public function getStatus() : String
@@ -80,6 +58,36 @@ public function getReturnDate() : DateTime
     return $this->return_date;
 }
 
+
+public function setRecordId(int $recordId)
+{
+    $this->recordId = $recordId;
+}
+
+public function setBookId(int $bookId)
+{
+    $this->bookId = $bookId;
+}
+
+public function setStatus(String $status)
+{
+    $this->status = $status;
+}
+
+public function setFineAmount(float $fineAmount)
+{
+    $this->fineAmount = $fineAmount;
+}
+
+public function setBorrowDate(DateTime $borrow_date)
+{
+    $this->borrow_date = $borrow_date;
+}
+
+public function setReturnDate(DateTime $return_date)
+{
+    $this->return_date = $return_date;
+}
 
 }
 

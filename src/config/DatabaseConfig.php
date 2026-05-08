@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Helpers;
-
+namespace App\Config;
 
 use PDO;
 use PDOException;
@@ -9,7 +8,7 @@ use RuntimeException;
 use PDOStatement;
 use App\Config\EnvParser;
 
-class Database {
+class Database{
 
     private static ?Database $instance = null;
     private ?PDO $pdo = null;

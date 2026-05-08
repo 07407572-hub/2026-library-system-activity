@@ -6,7 +6,7 @@ namespace App\Entity;
 class Student
 {
     private int $studentId;
-    private String $name;
+    private String $studentName;
 
     public function __construct()
     {
@@ -15,22 +15,23 @@ class Student
 
     public function getStudentId()
     {
-
+        return $this->studentId;
     }
 
     public function getName()
     {
-
+        return $this->studentName;
     }
 
-    public function setStudentId()
+    public function setStudentId($studentId)
     {
-
+        $this->studentId = $studentId;
+        
     }
 
-    public function setName()
+    public function setName($studentName)
     {
-
+        $this->studentName = $studentName;
     }
 }
 
