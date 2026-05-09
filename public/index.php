@@ -7,18 +7,21 @@ use App\Service\LibraryService;
 use App\Config\DatabaseConfig;
 use App\Exception\DatabaseException;
 
+// Initialize database connection and library service
 $db = DatabaseConfig::getInstance();
 $libraryService = new LibraryService($db);
 
 $message = '';
 $messageType = '';
 
+// Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        // Handle student registration
         if (isset($_POST['signup_student'])) {
             $name = $_POST['student_name'] ?? '';
             $studentId = $_POST['student_id'] ?? '';
-            
+
             if ($libraryService->registerStudent($name, $studentId)) {
                 $message = 'Student registered successfully';
                 $messageType = 'success';
@@ -27,11 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $messageType = 'error';
             }
         }
+        // Handle book addition
         elseif (isset($_POST['add_book'])) {
             $title = $_POST['book_title'] ?? '';
             $author = $_POST['book_author'] ?? '';
             $isbn = $_POST['book_isbn'] ?? '';
-            
+
             if ($libraryService->addBook($title, $author, $isbn)) {
                 $message = 'Book added successfully';
                 $messageType = 'success';
@@ -40,9 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $messageType = 'error';
             }
         }
+        // Handle book return
         elseif (isset($_POST['return_book'])) {
             $recordId = (int)($_POST['return_record_id'] ?? 0);
-            
+
             $fine = $libraryService->returnBook($recordId);
             $message = 'Book returned successfully. Fine: $' . number_format($fine, 2);
             $messageType = 'success';

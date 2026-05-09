@@ -6,11 +6,13 @@ use App\Repository\BookRepository;
 use App\Config\DatabaseConfig;
 use App\Exception\DatabaseException;
 
+// Initialize database connection and book repository
 $database = DatabaseConfig::getInstance();
 $bookrepo = new BookRepository($database);
 
 $bookList = [];
 
+// Fetch all books from the database
 try{
     $bookList = $bookrepo->listBooks();
 }catch(DatabaseException $error){

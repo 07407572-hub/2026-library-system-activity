@@ -7,12 +7,14 @@ use App\Service\LibraryService;
 use App\Config\DatabaseConfig;
 use App\Exception\DatabaseException;
 
+// Initialize database connection and library service
 $database = DatabaseConfig::getInstance();
 $libraryService = new LibraryService($database);
 
 $message = '';
 $messageType = '';
 
+// Handle borrow book form submission
 if(isset($_POST['borrowBook']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
     try{
         $studentId = (int)$_POST['student_id'];
@@ -26,20 +28,21 @@ if(isset($_POST['borrowBook']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
             $_SESSION['messageType'] = 'success';
         }else{
             $_SESSION['message'] = 'Failed to borrow book';
-            $_SESSION['messageType'] = 'error';     
+            $_SESSION['messageType'] = 'error';
         }
     }catch(DatabaseException $e){
         $_SESSION['message'] = 'Error: ' . $e->getMessage();
-        $_SESSION['messageType'] = 'error';   
+        $_SESSION['messageType'] = 'error';
     }catch(\Exception $e){
         $_SESSION['message'] = 'An unexpected error occurred';
-        $_SESSION['messageType'] = 'error';   
+        $_SESSION['messageType'] = 'error';
     }
 
     header('Location: ' . $_SERVER['PHP_SELF']);
     exit();
 }
 
+// Retrieve and clear session message
 if(isset($_SESSION['message'])){
     $message = $_SESSION['message'];
     $messageType = $_SESSION['messageType'];
