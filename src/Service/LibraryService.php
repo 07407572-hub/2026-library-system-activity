@@ -52,11 +52,13 @@ class LibraryService
         }
     }
 
-    public function borrowBook(int $studentId, int $bookId, int $days): bool
+    public function borrowBook(string $studentId, int $bookId, int $days): bool
     {
         try {
             return $this->borrowRepository->borrowBook($studentId, $bookId, $days);
         } catch (\PDOException $error) {
+            throw new DatabaseException("Failed to borrow book: " . $error->getMessage());
+        } catch (\Exception $error) {
             throw new DatabaseException("Failed to borrow book: " . $error->getMessage());
         }
     }

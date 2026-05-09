@@ -58,10 +58,10 @@ try{
                     <?php else: ?>
                         <?php foreach($bookList as $book): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($book['book_id'] ?? ''); ?></td>
+                                <td><?php echo htmlspecialchars((string)($book['book_id'] ?? '')); ?></td>
                                 <td><?php echo htmlspecialchars($book['title'] ?? ''); ?></td>
                                 <td><?php echo htmlspecialchars($book['author'] ?? ''); ?></td>
-                                <td><?php echo htmlspecialchars($book['year'] ?? ''); ?></td>
+                                <td><?php echo htmlspecialchars((string)($book['year'] ?? '')); ?></td>
                                 <td><?php echo htmlspecialchars($book['genre'] ?? ''); ?></td>
                                 <td>
                                     <span class="badge <?php echo ($book['status'] ?? '') === 'available' ? 'bg-success' : 'bg-danger'; ?>">
@@ -73,6 +73,7 @@ try{
                     <?php endif; ?>
                 </tbody>
             </table>
+
         </div>
         
         <a href="../../public/index.php" class="btn btn-primary mt-3">Back to Home</a>

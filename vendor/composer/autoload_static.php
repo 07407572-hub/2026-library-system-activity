@@ -9,24 +9,39 @@ class ComposerStaticInit739fefcb3e23fd58e24ec6ff7741c49a
     public static $prefixLengthsPsr4 = array (
         'A' =>
         array (
-            'App\\Models\\' => 11,
-            'App\\Helpers\\' => 12,
-            'App\\Controllers\\' => 16,
+            'App\\Config\\' => 11,
+            'App\\Repository\\' => 15,
+            'App\\Service\\' => 13,
+            'App\\Entity\\' => 11,
+            'App\\Exception\\' => 15,
+            'App\\View\\' => 9,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'App\\Models\\' =>
+        'App\\Config\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/src/models',
+            0 => __DIR__ . '/../..' . '/src/Config',
         ),
-        'App\\Helpers\\' =>
+        'App\\Repository\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/src/helpers',
+            0 => __DIR__ . '/../..' . '/src/Repository',
         ),
-        'App\\Controllers\\' =>
+        'App\\Service\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/src/controllers',
+            0 => __DIR__ . '/../..' . '/src/Service',
+        ),
+        'App\\Entity\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src/Entity',
+        ),
+        'App\\Exception\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src/Exception',
+        ),
+        'App\\View\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/src/View',
         ),
     );
 

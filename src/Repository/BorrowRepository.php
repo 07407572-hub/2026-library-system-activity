@@ -15,20 +15,36 @@ class BorrowRepository
         $this->connection = $database->getConnection();
     }
 
-    public function borrowBook(int $studentId, int $bookId, int $days): bool
+    public function borrowBook(string $studentId, int $bookId, int $days): bool
     {
-        $due = date('Y-m-d', strtotime('+' . $days . ' days'));
-        $sql = "INSERT INTO borrow_records(student_id, book_id, borrow_date, due_date, status) 
+        $due = date('Y-m-d', strtotime('+' . $days . 'days'));
+
+        $sql = "SELECT id FROM students WHERE student_id = :student_id";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute([':student_id' => $studentId]);
+        $student = $stmt->fetch();
+
+        if (!$student) {
+            throw new \Exception("Student with ID {$studentId} not found in database");
+        }
+
+        $actualStudentId = $student['id'];
+
+        $sql = "INSERT INTO borrow_records(student_id, book_id, borrow_date, due_date, status)
                 VALUES(:student_id, :book_id, :borrow_date, :due_date, 'borrowed')";
-        
+
         $stmt = $this->connection->prepare($sql);
         $stmt->execute([
-            ':student_id' => $studentId,
+            ':student_id' => $actualStudentId,
             ':book_id' => $bookId,
             ':borrow_date' => date('Y-m-d'),
             ':due_date' => $due
         ]);
-        
+
+        $sql2 = "UPDATE books SET status = 'borrowed' WHERE book_id = :book_id";
+        $stmt2 = $this->connection->prepare($sql2);
+        $stmt2->execute([':book_id' => $bookId]);
+
         return $stmt->rowCount() > 0;
     }
 
@@ -53,7 +69,7 @@ class BorrowRepository
         }
 
         $sql2 = "UPDATE borrow_records 
-                 SET return_date = :return_date, fine_amount = :fine_amount, status = 'returned' 
+                 SET return_date = :return_date, fine_amount = :fine_amount, status = 'returned'
                  WHERE record_id = :record_id";
         $stmt2 = $this->connection->prepare($sql2);
         $stmt2->execute([
@@ -61,6 +77,10 @@ class BorrowRepository
             ':fine_amount' => $fine,
             ':record_id' => $recordId
         ]);
+
+        $sql3 = "UPDATE books SET status = 'available' WHERE book_id = :book_id";
+        $stmt3 = $this->connection->prepare($sql3);
+        $stmt3->execute([':book_id' => $result['book_id']]);
 
         return $fine;
     }

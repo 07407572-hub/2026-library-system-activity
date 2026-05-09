@@ -36,7 +36,14 @@ private $dailyFineRate = 5;
     
     public function listBooks(): array
     {
-        $sql = "SELECT * FROM books ORDER BY book_id DESC";
+        $sql = "SELECT b.*, 
+                CASE 
+                    WHEN br.record_id IS NOT NULL AND br.status = 'borrowed' THEN 'borrowed'
+                    ELSE 'available'
+                END as status
+                FROM books b
+                LEFT JOIN borrow_records br ON b.book_id = br.book_id AND br.status = 'borrowed'
+                ORDER BY b.book_id DESC";
         $stmt = $this->connection->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();

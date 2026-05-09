@@ -7,8 +7,8 @@ use App\Service\LibraryService;
 use App\Config\DatabaseConfig;
 use App\Exception\DatabaseException;
 
-$db = DatabaseConfig::getInstance();
-$libraryService = new LibraryService($db);
+$database = DatabaseConfig::getInstance();
+$libraryService = new LibraryService($database);
 
 $message = '';
 $messageType = '';
@@ -145,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="text-center">
             <a href="../src/View/Book_list.php" class="btn btn-secondary">View Book List</a>
             <a href="../src/View/Borrow_form.php" class="btn btn-secondary">Borrow Form</a>
+            <a href="../src/View/report_view.php" class="btn btn-secondary">View Report</a>
         </div>
     </div>
     

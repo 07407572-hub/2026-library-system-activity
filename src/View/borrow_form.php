@@ -15,7 +15,7 @@ $messageType = '';
 
 if(isset($_POST['borrowBook']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
     try{
-        $studentId = (int)$_POST['student_id'];
+        $studentId = $_POST['student_id'];
         $bookId = (int)$_POST['book_id'];
         $borrowDays = (int)$_POST['borrow_days'];
 
@@ -32,7 +32,7 @@ if(isset($_POST['borrowBook']) && $_SERVER['REQUEST_METHOD'] === 'POST'){
         $_SESSION['message'] = 'Error: ' . $e->getMessage();
         $_SESSION['messageType'] = 'error';   
     }catch(\Exception $e){
-        $_SESSION['message'] = 'An unexpected error occurred';
+        $_SESSION['message'] = 'Error: ' . $e->getMessage();
         $_SESSION['messageType'] = 'error';   
     }
 

@@ -6,7 +6,10 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Models\\' => array($baseDir . '/src/models'),
-    'App\\Helpers\\' => array($baseDir . '/src/helpers'),
-    'App\\Controllers\\' => array($baseDir . '/src/controllers'),
+    'App\\Config\\' => array($baseDir . '/src/Config'),
+    'App\\Repository\\' => array($baseDir . '/src/Repository'),
+    'App\\Service\\' => array($baseDir . '/src/Service'),
+    'App\\Entity\\' => array($baseDir . '/src/Entity'),
+    'App\\Exception\\' => array($baseDir . '/src/Exception'),
+    'App\\View\\' => array($baseDir . '/src/View'),
 );
