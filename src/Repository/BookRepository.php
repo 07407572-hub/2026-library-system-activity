@@ -3,7 +3,7 @@ declare (strict_types = 1);
 
 namespace App\Repository;
 
-use App\Config\Database;
+use App\Config\DatabaseConfig;
 
 class BookRepository
 {
@@ -12,7 +12,7 @@ class BookRepository
 
 private $dailyFineRate = 5;
     
-    public function __construct(Database $database)
+    public function __construct(DatabaseConfig $database)
     {
         $this->connection = $database->getConnection();
     }
@@ -31,6 +31,15 @@ private $dailyFineRate = 5;
         $result = $this->connection->query($sql); 
         
         return $result->fetch();
+    }
+
+    
+    public function listBooks(): array
+    {
+        $sql = "SELECT * FROM books ORDER BY book_id DESC";
+        $stmt = $this->connection->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
 

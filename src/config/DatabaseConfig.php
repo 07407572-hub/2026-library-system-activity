@@ -8,9 +8,9 @@ use RuntimeException;
 use PDOStatement;
 use App\Config\EnvParser;
 
-class Database{
+class DatabaseConfig{
 
-    private static ?Database $instance = null;
+    private static ?DatabaseConfig $instance = null;
     private ?PDO $pdo = null;
     
     private $config;
@@ -73,7 +73,7 @@ class Database{
         throw new RuntimeException("Cannot unserialize singleton");
     }
     
-    public static function getInstance(): Database {
+    public static function getInstance(): DatabaseConfig {
         if (self::$instance === null) {
             self::$instance = new self();
         }
